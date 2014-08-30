@@ -8,7 +8,6 @@
 #import "RicCache.h"
 
 static int kCacheMemoryLimit;
-static dispatch_queue_t serialQueue;
 
 @interface RicCache ()
 @property (nonatomic, strong) NSString *cacheDirectory;
