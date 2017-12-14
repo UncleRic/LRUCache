@@ -33,7 +33,7 @@
 
 - (void)testFillCache {
     [_ricCache cachedArrayItems:self.arrayItems];
-    [self.ricCache.recentlyAccessedKeys firstObject];
+    (self.ricCache.recentlyAccessedKeys).firstObject;
      XCTAssertEqualObjects([self.ricCache.recentlyAccessedKeys firstObject], @"RicItems.archive", @"Cache doesn't have file name.");
 }
 

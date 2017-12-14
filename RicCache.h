@@ -10,9 +10,9 @@
 @interface RicCache : NSObject
 
 @property (nonatomic, strong) NSMutableArray *recentlyAccessedKeys;
-
-- (instancetype)initWithName:(NSString *)name;
+- (instancetype)init NS_UNAVAILABLE;  
+- (instancetype)initWithName:(NSString *)name NS_DESIGNATED_INITIALIZER;
 - (void)cachedArrayItems:(NSArray *)arrayItems;
-- (NSMutableArray *)getCachedArrayItems;
+@property (NS_NONATOMIC_IOSONLY, getter=getCachedArrayItems, readonly, copy) NSMutableArray *cachedArrayItems;
 - (void)clearCache;
 @end
