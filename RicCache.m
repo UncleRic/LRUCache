@@ -176,8 +176,16 @@ static int kCacheMemoryLimit;
 #pragma mark - Caching Assessors
 
 - (void)cachedArrayItems:(NSArray *)arrayItems {
-    [self cacheData:[NSKeyedArchiver archivedDataWithRootObject:arrayItems] toFile:@"RicItems.archive"];
+    NSError *error = nil;
+    NSData *archivedData = [NSKeyedArchiver archivedDataWithRootObject:arrayItems requiringSecureCoding:YES error:&error];
+    if (error) {
+        // Handle the error if necessary
+        NSLog(@"Error archiving data: %@", error);
+        return;
+    }
+    [self cacheData:archivedData toFile:@"RicItems.archive"];
 }
+
 
 // -----------------------------------------------------------------------------------------------------------------------
 
@@ -185,9 +193,17 @@ static int kCacheMemoryLimit;
     // 1) Get data from either cache or file.
     // 2) Reposition data in cache.
     // 3) Unarchive (deSerialize) it.
-    return [NSKeyedUnarchiver unarchiveObjectWithData:[self dataForFile:@"RicItems.archive"]];
+    NSError *error = nil;
+    NSMutableArray *cachedArrayItems = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSMutableArray class] fromData:[self dataForFile:@"RicItems.archive"] error:&error];
+    
+    if (error) {
+        // Handle any errors during unarchiving, if necessary.
+        NSLog(@"Error unarchiving data: %@", error);
+        cachedArrayItems = [NSMutableArray array]; // Create an empty array to prevent crashes.
+    }
+    
+    return cachedArrayItems;
 }
-
 
 @end
 

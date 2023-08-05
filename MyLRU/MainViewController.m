@@ -5,16 +5,16 @@
 //  Copyright (c) 2014 Amourine Technologies. All rights reserved.
 // -----------------------------------------------------------------------------------------------------------------------
 
-#import "ViewController.h"
+#import "MainViewController.h"
 #import "RicCache.h"
 
 
-@interface ViewController()
+@interface MainViewController()
 @property (strong, nonatomic) NSArray *arrayItems;
 @property (strong, nonatomic) RicCache *ricCache;
 @end
 
-@implementation ViewController
+@implementation MainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,19 +39,16 @@
 // -----------------------------------------------------------------------------------------------------------------------
 #pragma mark - Action methods
 
-- (IBAction)cacheSomething:(UIButton *)sender {
+- (IBAction)cacheSomething:(UIBarButtonItem *)sender {
     [_ricCache cachedArrayItems:self.arrayItems];
 }
-
 // -----------------------------------------------------------------------------------------------------------------------
-
-- (IBAction)retrieveCache:(UIButton *)sender {
+- (IBAction)retrieveCache:(UIBarButtonItem *)sender {
     self.arrayItems = [_ricCache getCachedArrayItems];
 }
 
 // -----------------------------------------------------------------------------------------------------------------------
-
-- (IBAction)exitButton:(id)sender {
+- (IBAction)exitButton:(UIBarButtonItem *)sender {
     exit(0);
 }
 
